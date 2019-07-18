@@ -24,8 +24,9 @@ class Options
     public static function getOptions()
     {
         $defaults = [
-            'scroll_gap'   => 0,
-            'scroll_speed' => 350,
+            'footnote_symbol' => '&sect;',
+            'scroll_gap'      => 0,
+            'scroll_speed'    => 350,
         ];
 
         $options = get_option('bfn_opts', $defaults);
