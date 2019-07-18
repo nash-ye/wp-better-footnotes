@@ -1,0 +1,23 @@
+{
+    "name": "nash-ye/better-footnotes",
+    "description": "Better Footnotes WordPress plugin.",
+    "type": "project",
+    "homepage": "https://github.com/nash-ye/",
+    "license": "BSD-3-Clause",
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.0"
+        }
+    },
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "BetterFootnotes\\": "src/BetterFootnotes/src/"
+        }
+    }
+}
