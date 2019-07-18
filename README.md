@@ -20,7 +20,7 @@ In order to insert a footnote, you can simply use the `[footnote]` shortcode as 
 #### Shortcode Parameters:
 - `type` Determines the type of the reference. Options: `numeric` / `non-numeric`.
 
-## Listing Footnotes:
+### Listing Footnotes:
 You can display the footnotes by using the shortcode `footnotes` as the following example:
 ```
 [footnotes]
