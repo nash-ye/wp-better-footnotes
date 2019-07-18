@@ -1,8 +1,8 @@
 {
-    "name": "nash-ye/better-footnotes",
+    "name": "nash-ye/wp-better-footnotes",
     "description": "Better Footnotes WordPress plugin.",
     "type": "project",
-    "homepage": "https://github.com/nash-ye/",
+    "homepage": "https://github.com/nash-ye/wp-better-footnotes",
     "license": "BSD-3-Clause",
     "config": {
         "sort-packages": true,
