@@ -3,7 +3,7 @@
     "description": "Better Footnotes WordPress plugin.",
     "type": "project",
     "homepage": "https://github.com/nash-ye/wp-better-footnotes",
-    "license": "BSD-3-Clause",
+    "license": "GPL-2.0",
     "config": {
         "sort-packages": true,
         "platform": {
