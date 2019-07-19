@@ -28,3 +28,9 @@ You can display the footnotes by using the shortcode `footnotes` as the followin
 #### Shortcode Parameters:
 - `title` Determines the title for the footnotes list.
 - `title_tag` Title tag name. Default is `h3`.
+
+## Requirements
+- PHP version 7.0 or higher.
+
+## Credits
+This plugin is based on [Advanced Footnotes](https://wordpress.org/plugins/advanced-footnotes/) plugin v1.1.2 by Yunus Tabakoğlu.
