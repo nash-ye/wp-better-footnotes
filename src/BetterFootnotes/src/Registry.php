@@ -71,8 +71,10 @@ class Registry
     /**
      * Add a new unordered footnote.
      *
-     * @param  string $footnoteContent Footnote content.
+     * @param string $footnoteContent Footnote content.
+     * 
      * @return int Unordered footnotes count
+     * 
      * @since  1.0
      * @static
      */
@@ -110,8 +112,10 @@ class Registry
     /**
      * Add a new ordered footnote.
      *
-     * @param  string $footnoteContent Footnote content.
+     * @param string $footnoteContent Footnote content.
+     * 
      * @return int Ordered footnotes count.
+     * 
      * @since  1.0
      * @static
      */

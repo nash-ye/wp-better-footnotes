@@ -4,9 +4,10 @@ Tags: footnote, footnotes, bibliography, references
 Requires at least: 4.0
 Tested up to: 5.2.2
 Requires PHP: 7.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Donate link: https://www.patreon.com/nash1ye
 
 Simple yet powerful footnotes integration on your WordPress site.
 
