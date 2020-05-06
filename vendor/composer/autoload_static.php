@@ -24,7 +24,6 @@ class ComposerStaticInitb3e03e4cda45d85740cdc6c7d645e900
         'BetterFootnotes\\Admin' => __DIR__ . '/../..' . '/src/BetterFootnotes/src/Admin.php',
         'BetterFootnotes\\Main' => __DIR__ . '/../..' . '/src/BetterFootnotes/src/Main.php',
         'BetterFootnotes\\Options' => __DIR__ . '/../..' . '/src/BetterFootnotes/src/Options.php',
-        'BetterFootnotes\\Registry' => __DIR__ . '/../..' . '/src/BetterFootnotes/src/Registry.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

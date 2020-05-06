@@ -1,7 +1,7 @@
 <?php
 /**
  * Main class file.
- * 
+ *
  * @package BetterFootnotes
  * @since   1.0
  */
@@ -9,14 +9,14 @@ namespace BetterFootnotes;
 
 /**
  * Main class.
- * 
+ *
  * @since 1.0
  */
 class Main
 {
     /**
      * Private constructor.
-     * 
+     *
      * @access private
      * @since  1.0
      */
@@ -26,7 +26,7 @@ class Main
 
     /**
      * Setup plugin's hooks.
-     * 
+     *
      * @return void
      * @since  1.0
      */
@@ -40,7 +40,7 @@ class Main
 
     /**
      * Load plugin translations.
-     * 
+     *
      * @return void
      * @since  1.0
      */
@@ -51,7 +51,7 @@ class Main
 
     /**
      * Register plugin shortcodes.
-     * 
+     *
      * @return void
      * @since  1.0
      */
@@ -63,7 +63,7 @@ class Main
 
     /**
      * Register plugin scripts and styles.
-     * 
+     *
      * @return void
      * @since  1.0
      */
@@ -80,7 +80,7 @@ class Main
 
     /**
      * Enqueue plugin scripts and styles.
-     * 
+     *
      * @return void
      * @since  1.0
      */
@@ -93,50 +93,49 @@ class Main
         wp_enqueue_style('better-footnotes');
 
         wp_enqueue_script('better-footnotes');
-        wp_localize_script('better-footnotes', 'betterFootnotesOptions', [
-            'scrollGap'   => Options::getOption('scroll_gap'),
-            'scrollSpeed' => Options::getOption('scroll_speed'),
-        ]);
+        wp_localize_script(
+            'better-footnotes',
+            'betterFootnotesOptions',
+            [
+                'scrollGap'   => Options::getOption('scroll_gap'),
+                'scrollSpeed' => Options::getOption('scroll_speed'),
+            ]
+        );
     }
 
     /**
      * Shortcode 'footnote' callback.
-     * 
+     *
      * @return string
      * @since  1.0
      */
     public function shortcodeFootnote($atts, $content)
     {
         $output = '';
+
         $post = get_post();
 
-        $atts = shortcode_atts([
-            'type' => 'numeric',
-        ], $atts);
+        $atts = shortcode_atts(
+            [
+                'type' => 'numeric',
+            ],
+            $atts
+        );
 
-        switch ($atts['type']) {
-            case "numeric":
-                $footnoteNum = Registry::addOrderedFootnote($content);
-                $footnoteId = 'article-footnote-' . $post->ID . '-' . $footnoteNum;
-                $footnoteHookId = 'article-footnote-hook-' . $post->ID . '-' . $footnoteNum;
-                $output = '<a class="bfn-footnoteHook" id="' . $footnoteHookId . '" href="#' . $footnoteId . '">' . $footnoteNum . '</a>';
-                break;
-            default:
-            case "numberless":
-            case "non-numeric":
-                $footnoteNum = Registry::addUnorderedFootnote($content);
-                $footnoteId = 'article-footnote-numberless-' . $post->ID . '-' . $footnoteNum;
-                $footnoteHookId = 'article-footnote-numberless-hook-' . $post->ID . '-' . $footnoteNum;
-                $output = '<a class="bfn-footnoteHook" id="' . $footnoteHookId . '" href="#' . $footnoteId . '">' . Options::getOption('footnote_symbol') . '</a>';
-                break;
+        if (empty($post)) {
+            return $output;
         }
+
+        $output = '<a href="#bfn-footnotes-' . esc_attr($post->ID) . '" class="bfn-footnoteHook" data-footnote-type="' . esc_attr($atts['type']) . '" data-footnote-content="' . esc_attr($content) . '">';
+        $output .= Options::getOption('footnote_symbol');
+        $output .= '</a>';
 
         return $output;
     }
 
     /**
      * Shortcode 'footnotes' callback.
-     * 
+     *
      * @return string
      * @since  1.0
      */
@@ -144,61 +143,30 @@ class Main
     {
         $output = '';
 
-        if (Registry::isEmpty()) {
-            return $output;
-        }
-
         $post = get_post();
 
-        $atts = shortcode_atts([
-            'title'     => __('References', 'better-footnotes'),
-            'title_tag' => 'h3',
-        ], $atts);
+        $atts = shortcode_atts(
+            [
+                'title'     => __('References', 'better-footnotes'),
+                'title_tag' => 'h3',
+                'container' => '',
+            ],
+            $atts
+        );
 
         if (empty($atts['title_tag'])) {
             $atts['title_tag'] = 'h3';
         }
 
-        $output = '<div class="bfn-footnotes">';
+        $output .= '<div id="bfn-footnotes-' . esc_attr($post->ID) . '" class="bfn-footnotes" data-post-id="' . esc_attr($post->ID) . '" data-container="'. esc_attr($atts['container']) .'">';
 
         if (! empty($atts['title'])) {
             $output .= "<{$atts['title_tag']} class='bfn-footnotes-title'>" . $atts['title'] . "</{$atts['title_tag']}>";
         }
 
-        $output .= '<ul class="bfn-footnotesList">';
+        $output .= '<ul class="bfn-footnotesList"></ul>';
 
-        if (Registry::hasUnorderedFootnotes()) {
-            foreach (Registry::getUnorderedFootnotes() as $nth => $footnote) {
-                $footnoteId = 'article-footnote-numberless-' . $post->ID . '-' . ($nth + 1);
-                $footnoteHookId = 'article-footnote-numberless-hook-' . $post->ID . '-' . ($nth + 1);
-
-                $output .= '<li class="bfn-footnoteItem">';
-                $output .= '<a class="bfn-footnoteRef" id="' . esc_attr($footnoteId) . '" href="#' . esc_attr($footnoteHookId) . '">';
-                $output .= esc_html(Options::getOption('footnote_symbol'));
-                $output .= '</a> ';
-                $output .= $footnote;
-                $output .= '</li>';
-            }
-        }
-
-        if (Registry::hasOrderedFootnotes()) {
-            foreach (Registry::getOrderedFootnotes() as $nth => $footnote) {
-                $footnoteId = 'article-footnote-' . $post->ID . '-' . ($nth + 1);
-                $footnoteHookId = 'article-footnote-hook-' . $post->ID . '-' . ($nth + 1);
-
-                $output .= '<li class="bfn-footnoteItem">';
-                $output .= '<a class="bfn-footnoteRef" id="' . esc_attr($footnoteId) . '" href="#' . esc_attr($footnoteHookId) . '">';
-                $output .= ($nth + 1);
-                $output .= '</a> ';
-                $output .= $footnote;
-                $output .= '</li>';
-            }
-        }
-
-        $output .= '</ul>';
         $output .= '</div>';
-
-        Registry::reset();
 
         return $output;
     }
@@ -207,7 +175,7 @@ class Main
 
     /**
      * Create plugin's main instance once.
-     * 
+     *
      * @return void
      * @since  1.0
      * @static
