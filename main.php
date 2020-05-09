@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Better Footnotes
  * Description: Simple yet powerful footnotes integration on your WordPress site.
- * Version: 1.1.0-beta-1
+ * Version: 1.1.0
  * Author: Nashwan Doaqan
  * Author URI: https://profiles.wordpress.org/alex-ye/
  * Text Domain: better-footnotes
@@ -17,7 +17,7 @@
  * @var   float
  * @since 1.0
  */
-define('BetterFootnotes\PLUGIN_VERSION', '1.1.0-beta-1');
+define('BetterFootnotes\PLUGIN_VERSION', '1.1.0');
 
 /**
  * Plugin's codename.
