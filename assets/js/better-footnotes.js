@@ -51,8 +51,8 @@
                 $footenotesList.append($footnoteItem);
             });
 
-            if ($footenotesList.is(":empty")) {
-                $footenotes.hide();
+            if (! $footenotesList.is(":empty")) {
+                $footenotes.show();
             }
         },
         populateFootnoteHook: function($footnoteHook, footnotePostId, footnoteNum) {
@@ -89,6 +89,7 @@
             $footnoteItem.addClass("bfn-footnoteItem");
 
             $footnoteItem.append(betterFootnotes.generateFootnoteRef($footnoteHook));
+            $footnoteItem.append("&nbsp;");
             $footnoteItem.append($footnoteHook.attr("data-footnote-content"));
 
             return $footnoteItem;

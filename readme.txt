@@ -2,9 +2,9 @@
 Contributors: alex-ye
 Tags: footnote, footnotes, bibliography, references
 Requires at least: 4.0
-Tested up to: 5.2.2
+Tested up to: 5.4.1
 Requires PHP: 7.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.patreon.com/nash1ye
@@ -28,7 +28,7 @@ In order to insert a footnote, you can simply use the `[footnote]` shortcode as 
 [footnote]Your footnote here[/footnote]
 `
 
-** Shortcode Parameters **
+*Shortcode Parameters*
 - `type` Determines the type of the reference. Options: `numeric` / `non-numeric`.
 
 = Listing Footnotes =
@@ -36,7 +36,7 @@ You can display the footnotes by using the shortcode `footnotes` as the followin
 `
 [footnotes]
 `
-** Shortcode Parameters **
+*Shortcode Parameters*
 - `title` Determines the title for the footnotes list.
 - `title_tag` Title tag name. Default is `h3`.
 
@@ -46,9 +46,17 @@ Developers can contribute to the source code on the [Github Repository](https://
 == Installation ==
 
 1. Upload and install the plugin
-2. Use the plugin shortcode.
+2. Use the plugin shortcodes.
 
 == Changelog ==
+
+= 1.1.1 =
+* Hide footnotes section by default, and show it only when footnotes exist.
+* Sanitize 'title_tag' and 'container' parameters in [footnotes] shortcode.
+* Add 'post_id' parameter to [footnotes] shortcode.
+
+= 1.1.0 =
+* Switch to a client-side engine to render the footnotes.
 
 = 1.0 =
 * The Initial version.

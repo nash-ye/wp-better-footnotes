@@ -158,10 +158,13 @@ class Admin
      */
     public function renderSettingsField($args)
     {
-        $args = array_merge([
-            'name'      => '',
-            'label_for' => '',
-        ], $args);
+        $args = array_merge(
+            [
+                'name'      => '',
+                'label_for' => '',
+            ],
+            $args
+        );
 
         if ('footnote_symbol' === $args['name']) : ?>
         <input type="text" id="<?php echo esc_attr($args['label_for']) ?>" name="bfn_opts[footnote_symbol]" value="<?php echo esc_attr(Options::getOption('footnote_symbol')) ?>" class="regular-text">

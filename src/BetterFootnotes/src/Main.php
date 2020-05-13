@@ -142,30 +142,34 @@ class Main
     public function shortcodeFootnotes($atts)
     {
         $output = '';
-
-        $post = get_post();
-
         $atts = shortcode_atts(
             [
                 'title'     => __('References', 'better-footnotes'),
                 'title_tag' => 'h3',
                 'container' => '',
+                'post_id'   => 0,
             ],
             $atts
         );
 
+        $atts['post_id'] = (int) $atts['post_id'];
+        $atts['title_tag'] = sanitize_html_class($atts['title_tag']);
+        $atts['container'] = sanitize_html_class($atts['container']);
         if (empty($atts['title_tag'])) {
             $atts['title_tag'] = 'h3';
         }
 
-        $output .= '<div id="bfn-footnotes-' . esc_attr($post->ID) . '" class="bfn-footnotes" data-post-id="' . esc_attr($post->ID) . '" data-container="'. esc_attr($atts['container']) .'">';
+        $post = get_post($atts['post_id']);
 
+        if (empty($post)) {
+            return $output;
+        }
+
+        $output .= '<div id="bfn-footnotes-' . esc_attr($post->ID) . '" class="bfn-footnotes" data-post-id="' . esc_attr($post->ID) . '" data-container="'. esc_attr($atts['container']) .'" style="display: none;">';
         if (! empty($atts['title'])) {
             $output .= "<{$atts['title_tag']} class='bfn-footnotes-title'>" . $atts['title'] . "</{$atts['title_tag']}>";
         }
-
         $output .= '<ul class="bfn-footnotesList"></ul>';
-
         $output .= '</div>';
 
         return $output;
