@@ -1,20 +1,23 @@
 # WP Better Footnotes
-Simple yet powerful footnotes integration on your WordPress site.
+A robust solution to provide a fast reference and link to additional information for your readers
 
 ## Description
-Better Footnotes plugin lets you add footnotes on articles via shortcodes. It's extremely customizable, therefore it can be implemented on any theme.
+Better Footnotes is a robust and flexible solution that provides your articles with readers with a fast reference and links to additional information.
+
+Better Footnotes lets you add footnotes on articles easily and effortlessly using the visual editor or WordPress shortcodes. It's easy to use, customizable, and compatible with any WordPress theme.
 
 ### Main Features:
-- Easy & flexible implementation.
-- Animated scrolling effect (can be disabled).
-- Footnotes can be implemented with shortcodes.
+- Robust & flexible implementation.
+- Visual editor buttons to add foonotes.
+- Simple shortcodes to add or list footnotes.
+- Animated footnotes scrolling effect, which can be disabled.
 
 ## Usage
 
 ### Inserting a Footnote:
 In order to insert a footnote, you can simply use the `[footnote]` shortcode as the following example:
 ```
-[footnote]Your footnote here[/footnote]
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ex lacus, iaculis eget leo ac, tempus vestibulum mi. Curabitur dictum varius pharetra. Sed lobortis sem ac efficitur efficitur. [footnote]Your footnote here[/footnote]
 ```
 
 #### Shortcode Parameters:
@@ -31,6 +34,3 @@ You can display the footnotes by using the shortcode `footnotes` as the followin
 
 ## Requirements
 - PHP version 7.0 or higher.
-
-## Credits
-This plugin is based on [Advanced Footnotes](https://wordpress.org/plugins/advanced-footnotes/) plugin v1.1.2 by Yunus Tabakoğlu.

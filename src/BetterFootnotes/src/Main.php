@@ -32,10 +32,14 @@ class Main
      */
     public function setupHooks()
     {
-        add_action('init', [$this, 'loadLocale'], 1);
         add_action('init', [$this, 'registerShortcodes']);
+
         add_action('wp_enqueue_scripts', [$this, 'registerScripts']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+
+        add_filter('mce_external_languages', [$this, 'filterMceExternalLanguages']);
+        add_filter('mce_external_plugins', [$this, 'filterMceExternalPlugins']);
+        add_filter('mce_buttons', [$this, 'filterMceButtons']);
     }
 
     /**
@@ -119,14 +123,17 @@ class Main
             [
                 'type' => 'numeric',
             ],
-            $atts
+            $atts,
+            'bfn_footnote'
         );
 
         if (empty($post)) {
             return $output;
         }
 
-        $output = '<a href="#bfn-footnotes-' . esc_attr($post->ID) . '" class="bfn-footnoteHook" data-footnote-type="' . esc_attr($atts['type']) . '" data-footnote-content="' . esc_attr($content) . '">';
+        $content = apply_filters('BetterFootnotes\footnoteContent', $content);
+
+        $output .= '<a href="#bfn-footnotes-' . esc_attr($post->ID) . '" class="bfn-footnoteHook" data-footnote-type="' . esc_attr($atts['type']) . '" data-footnote-content="' . esc_attr($content) . '">';
         $output .= Options::getOption('footnote_symbol');
         $output .= '</a>';
 
@@ -149,7 +156,8 @@ class Main
                 'container' => '',
                 'post_id'   => 0,
             ],
-            $atts
+            $atts,
+            'bfn_footnotes'
         );
 
         $atts['post_id'] = (int) $atts['post_id'];
@@ -175,6 +183,42 @@ class Main
         return $output;
     }
 
+    /**
+     * Add plugin's TinyMCE add-on translations.
+     *
+     * @return array
+     * @since  1.2
+     */
+    public function filterMceExternalLanguages($translations)
+    {
+        $translations['betterFootnotes'] = trailingslashit(PLUGIN_PATH) . 'src/BetterFootnotes/src/tinymce-plugin-i18n.php';
+        return $translations;
+    }
+
+    /**
+     * Add plugin's TinyMCE add-on.
+     *
+     * @return array
+     * @since  1.2
+     */
+    public function filterMceExternalPlugins($externalPlugins)
+    {
+        $externalPlugins['betterFootnotes'] = trailingslashit(PLUGIN_URL) . 'assets/js/tinymce-better-footnotes.js';
+        return $externalPlugins;
+    }
+
+    /**
+     * Add plugin's TinyMCE button.
+     *
+     * @return array
+     * @since  1.2
+     */
+    public function filterMceButtons($buttons)
+    {
+        array_push($buttons, 'bfn_footnote');
+        return $buttons;
+    }
+
     /*** Singleton ************************************************************/
 
     /**
@@ -190,6 +234,7 @@ class Main
 
         if (is_null($instance)) {
             $instance = new self;
+            $instance->loadLocale();
             $instance->setupHooks();
         }
 

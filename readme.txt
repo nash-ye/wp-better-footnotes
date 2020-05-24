@@ -4,28 +4,31 @@ Tags: footnote, footnotes, bibliography, references
 Requires at least: 4.0
 Tested up to: 5.4.1
 Requires PHP: 7.0
-Stable tag: 1.1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.patreon.com/nash1ye
 
-Simple yet powerful footnotes integration on your WordPress site.
+A robust solution to provide a fast reference and link to additional information for your readers
 
 == Description ==
 
-Better Footnotes plugin lets you add footnotes on articles via shortcodes. It's extremely customizable, therefore it can be implemented on any theme.
+Better Footnotes is a robust and flexible solution that provides your articles with readers with a fast reference and links to additional information.
+
+Better Footnotes lets you add footnotes on articles easily and effortlessly using the visual editor or WordPress shortcodes. It's easy to use, customizable, and compatible with any WordPress theme.
 
 = Main Features =
-- Easy & flexible implementation.
-- Animated scrolling effect (can be disabled).
-- Footnotes can be implemented with shortcodes.
+- Robust & flexible implementation.
+- Visual editor buttons to add foonotes.
+- Simple shortcodes to add or list footnotes.
+- Animated footnotes scrolling effect, which can be disabled.
 
 = Usage =
 
 = Inserting a Footnote =
 In order to insert a footnote, you can simply use the `[footnote]` shortcode as the following example:
 `
-[footnote]Your footnote here[/footnote]
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ex lacus, iaculis eget leo ac, tempus vestibulum mi. Curabitur dictum varius pharetra. Sed lobortis sem ac efficitur efficitur. [footnote]Your footnote here[/footnote]
 `
 
 *Shortcode Parameters*
@@ -49,6 +52,10 @@ Developers can contribute to the source code on the [Github Repository](https://
 2. Use the plugin shortcodes.
 
 == Changelog ==
+
+= 1.2 =
+* Add TinyMCE footnote button.
+* Add "BetterFootnotes\footnoteContent" filter.
 
 = 1.1.1 =
 * Hide footnotes section by default, and show it only when footnotes exist.

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Footnotes Plugin 1.0\n"
+"Project-Id-Version: Better Footnotes v1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-18 19:39+0300\n"
-"PO-Revision-Date: 2019-07-18 19:43+0300\n"
+"POT-Creation-Date: 2020-05-24 23:54+0300\n"
+"PO-Revision-Date: 2020-05-24 23:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: Nashwan Doaqan <nashwan.doaqan@gmail.com>\n"
 "Language: ar\n"
@@ -14,7 +14,7 @@ msgstr ""
 "_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr_x:1,2c;esc_html_x:1,2c;"
 "esc_html__;esc_html_e\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -51,11 +51,11 @@ msgstr "المسافة الزائدة للتمرير"
 msgid "Footnotes Scroll Speed"
 msgstr "سرعة التمرير إلى الحواشي"
 
-#: src/BetterFootnotes/src/Admin.php:169
+#: src/BetterFootnotes/src/Admin.php:172
 msgid "Symbol used for non-numeric footnotes."
 msgstr "رمز يتم استخدامه للحواشي الغير مرقمة."
 
-#: src/BetterFootnotes/src/Admin.php:174
+#: src/BetterFootnotes/src/Admin.php:177
 msgid ""
 "Use this if you have a fixed component on top of the viewport of your site. "
 "This can be dynamically set (see documentation)."
@@ -63,7 +63,7 @@ msgstr ""
 "استخدم هذا الخيار إن كان هناك مكون ثابت في أعلى الموقع. بالإمكان أن يتم "
 "إعداد هذا الخيار ديناميكيًا (راجع التوثيق)."
 
-#: src/BetterFootnotes/src/Admin.php:179
+#: src/BetterFootnotes/src/Admin.php:182
 msgid ""
 "Adjusts the scroll animation speed when a footnote is clicked. (0 For no "
 "animation)."
@@ -73,6 +73,10 @@ msgstr ""
 #: src/BetterFootnotes/src/Main.php:154
 msgid "References"
 msgstr "المراجع"
+
+#: src/BetterFootnotes/src/tinymce-plugin-i18n.php:11
+msgid "Insert Footnote"
+msgstr "إدراج حاشية"
 
 #~ msgctxt "post type general name"
 #~ msgid "Biographies"
