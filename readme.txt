@@ -13,7 +13,7 @@ A robust solution to provide a fast reference and link to additional information
 
 == Description ==
 
-Better Footnotes is a robust and flexible solution that provides your articles with readers with a fast reference and links to additional information.
+Better Footnotes is a robust and flexible solution that provides your article's readers with a fast reference and links to additional information.
 
 Better Footnotes lets you add footnotes on articles easily and effortlessly using the visual editor or WordPress shortcodes. It's easy to use, customizable, and compatible with any WordPress theme.
 
