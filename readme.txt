@@ -1,10 +1,10 @@
 === Better Footnotes ===
 Contributors: alex-ye
-Tags: footnote, footnotes, bibliography, references
+Tags: footnote, footnotes, bibliography, references, notes
 Requires at least: 4.0
 Tested up to: 5.4.1
 Requires PHP: 7.0
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.patreon.com/nash1ye
@@ -52,6 +52,9 @@ Developers can contribute to the source code on the [Github Repository](https://
 2. Use the plugin shortcodes.
 
 == Changelog ==
+
+= 1.3 =
+* Add "Auto Append" setting.
 
 = 1.2 =
 * Add TinyMCE footnote button.

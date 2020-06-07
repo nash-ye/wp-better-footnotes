@@ -37,6 +37,8 @@ class Main
         add_action('wp_enqueue_scripts', [$this, 'registerScripts']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
 
+        add_filter('the_content', [$this, 'appendFootnotesListToPostContent'], 5);
+
         add_filter('mce_external_languages', [$this, 'filterMceExternalLanguages']);
         add_filter('mce_external_plugins', [$this, 'filterMceExternalPlugins']);
         add_filter('mce_buttons', [$this, 'filterMceButtons']);
@@ -154,23 +156,21 @@ class Main
                 'title'     => __('References', 'better-footnotes'),
                 'title_tag' => 'h3',
                 'container' => '',
-                'post_id'   => 0,
             ],
             $atts,
             'bfn_footnotes'
         );
 
-        $atts['post_id'] = (int) $atts['post_id'];
+        $post = get_post();
+
+        if (empty($post)) {
+            return $output;
+        }
+
         $atts['title_tag'] = sanitize_html_class($atts['title_tag']);
         $atts['container'] = sanitize_html_class($atts['container']);
         if (empty($atts['title_tag'])) {
             $atts['title_tag'] = 'h3';
-        }
-
-        $post = get_post($atts['post_id']);
-
-        if (empty($post)) {
-            return $output;
         }
 
         $output .= '<div id="bfn-footnotes-' . esc_attr($post->ID) . '" class="bfn-footnotes" data-post-id="' . esc_attr($post->ID) . '" data-container="'. esc_attr($atts['container']) .'" style="display: none;">';
@@ -181,6 +181,27 @@ class Main
         $output .= '</div>';
 
         return $output;
+    }
+
+    /**
+     * Append footnotes list to post content.
+     *
+     * @return string
+     * @since  1.3
+     */
+    public function appendFootnotesListToPostContent($content)
+    {
+        $append = ('y' === Options::getOption('auto_append'));
+
+        if (! $append) {
+            return $content;
+        }
+
+        if ($content && has_shortcode($content, 'footnote')) {
+            $content .= '[footnotes]';
+        }
+
+        return $content;
     }
 
     /**

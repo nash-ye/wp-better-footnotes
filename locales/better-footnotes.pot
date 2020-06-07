@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Better Footnotes v1.2\n"
+"Project-Id-Version: Better Footnotes v1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 23:53+0300\n"
-"PO-Revision-Date: 2020-05-24 23:53+0300\n"
+"POT-Creation-Date: 2020-06-08 01:31+0300\n"
+"PO-Revision-Date: 2020-06-08 01:31+0300\n"
 "Last-Translator: \n"
 "Language-Team: Nashwan Doaqan <nashwan.doaqan@gmail.com>\n"
 "Language: en\n"
@@ -31,42 +31,54 @@ msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
 #: src/BetterFootnotes/src/Admin.php:93
-msgid "Strings"
+msgid "General"
 msgstr ""
 
 #: src/BetterFootnotes/src/Admin.php:100
-msgid "Footnote Symbol"
+msgid "Auto Append"
 msgstr ""
 
 #: src/BetterFootnotes/src/Admin.php:113
-msgid "Scrolling"
+msgid "Strings"
 msgstr ""
 
 #: src/BetterFootnotes/src/Admin.php:120
+msgid "Footnote Symbol"
+msgstr ""
+
+#: src/BetterFootnotes/src/Admin.php:133
+msgid "Scrolling"
+msgstr ""
+
+#: src/BetterFootnotes/src/Admin.php:140
 msgid "Footnotes Scroll Gap"
 msgstr ""
 
-#: src/BetterFootnotes/src/Admin.php:132
+#: src/BetterFootnotes/src/Admin.php:152
 msgid "Footnotes Scroll Speed"
 msgstr ""
 
-#: src/BetterFootnotes/src/Admin.php:172
+#: src/BetterFootnotes/src/Admin.php:194
 msgid "Symbol used for non-numeric footnotes."
 msgstr ""
 
-#: src/BetterFootnotes/src/Admin.php:177
+#: src/BetterFootnotes/src/Admin.php:199
+msgid "Append the footnotes list to post content automatically."
+msgstr ""
+
+#: src/BetterFootnotes/src/Admin.php:205
 msgid ""
 "Use this if you have a fixed component on top of the viewport of your site. "
 "This can be dynamically set (see documentation)."
 msgstr ""
 
-#: src/BetterFootnotes/src/Admin.php:182
+#: src/BetterFootnotes/src/Admin.php:210
 msgid ""
 "Adjusts the scroll animation speed when a footnote is clicked. (0 For no "
 "animation)."
 msgstr ""
 
-#: src/BetterFootnotes/src/Main.php:154
+#: src/BetterFootnotes/src/Main.php:156
 msgid "References"
 msgstr ""
 
@@ -840,9 +852,6 @@ msgstr ""
 
 #~ msgid "Product Info"
 #~ msgstr "معلومات المنتج"
-
-#~ msgid "General"
-#~ msgstr "عام"
 
 #~ msgid "Mobile Model"
 #~ msgstr "الطراز"

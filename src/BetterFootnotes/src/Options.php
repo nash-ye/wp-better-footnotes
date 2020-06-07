@@ -25,6 +25,7 @@ class Options
     {
         $defaults = [
             'footnote_symbol' => '&sect;',
+            'auto_append'     => 'n',
             'scroll_gap'      => 0,
             'scroll_speed'    => 350,
         ];
