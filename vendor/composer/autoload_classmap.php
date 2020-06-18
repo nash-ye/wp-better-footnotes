@@ -9,5 +9,4 @@ return array(
     'BetterFootnotes\\Admin' => $baseDir . '/src/BetterFootnotes/src/Admin.php',
     'BetterFootnotes\\Main' => $baseDir . '/src/BetterFootnotes/src/Main.php',
     'BetterFootnotes\\Options' => $baseDir . '/src/BetterFootnotes/src/Options.php',
-    'BetterFootnotes\\Registry' => $baseDir . '/src/BetterFootnotes/src/Registry.php',
 );

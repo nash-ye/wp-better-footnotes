@@ -87,6 +87,26 @@ class Admin
     {
         register_setting('bfn_opts', 'bfn_opts', [$this, 'validateSettingsField']);
 
+        // General
+        add_settings_section(
+            'bfn_general',
+            __('General', 'better-footnotes'),
+            [$this, 'renderSettingsSection'],
+            'better_footnotes'
+        );
+
+        add_settings_field(
+            'auto_append',
+            __('Auto Append', 'better-footnotes'),
+            [$this, 'renderSettingsField'],
+            'better_footnotes',
+            'bfn_general',
+            [
+                'id'   => 'bfn_auto_append',
+                'name' => 'auto_append',
+            ]
+        );
+
         // Strings
         add_settings_section(
             'bfn_strings',
@@ -102,8 +122,8 @@ class Admin
             'better_footnotes',
             'bfn_strings',
             [
-                'name'      => 'footnote_symbol',
-                'label_for' => 'bfn_footnote_symbol',
+                'id'   => 'bfn_footnote_symbol',
+                'name' => 'footnote_symbol',
             ]
         );
 
@@ -122,8 +142,8 @@ class Admin
             'better_footnotes',
             'bfn_scrolling',
             [
-                'name'      => 'scroll_gap',
-                'label_for' => 'bfn_scroll_gap',
+                'id'   => 'bfn_scroll_gap',
+                'name' => 'scroll_gap',
             ]
         );
 
@@ -134,8 +154,8 @@ class Admin
             'better_footnotes',
             'bfn_scrolling',
             [
-                'name'      => 'scroll_speed',
-                'label_for' => 'bfn_scroll_speed',
+                'id'   => 'bfn_scroll_speed',
+                'name' => 'scroll_speed',
             ]
         );
     }
@@ -158,23 +178,34 @@ class Admin
      */
     public function renderSettingsField($args)
     {
-        $args = array_merge([
-            'name'      => '',
-            'label_for' => '',
-        ], $args);
+        $args = array_merge(
+            [
+                'id'   => '',
+                'name' => '',
+            ],
+            $args
+        );
+
+        $fieldName = sprintf('bfn_opts[%s]', $args['name']);
 
         if ('footnote_symbol' === $args['name']) : ?>
-        <input type="text" id="<?php echo esc_attr($args['label_for']) ?>" name="bfn_opts[footnote_symbol]" value="<?php echo esc_attr(Options::getOption('footnote_symbol')) ?>" class="regular-text">
+        <input type="text" id="<?php echo esc_attr($args['id']) ?>" name="<?php echo esc_attr($fieldName) ?>" value="<?php echo esc_attr(Options::getOption($args['name'])) ?>" class="regular-text">
         <br>
         <span class="description"><?php esc_html_e('Symbol used for non-numeric footnotes.', 'better-footnotes') ?></span>
 
+        <?php elseif ('auto_append' === $args['name']) : ?>
+        <label>
+            <input type="checkbox" id="<?php echo esc_attr($args['id']) ?>" name="<?php echo esc_attr($fieldName) ?>" value="y" <?php checked('y', Options::getOption($args['name'])) ?>>
+            <?php esc_html_e('Append the footnotes list to post content automatically.', 'better-footnotes') ?>
+        </label>
+
         <?php elseif ('scroll_gap' === $args['name']) : ?>
-        <input type="number" id="<?php echo esc_attr($args['label_for']) ?>" name="bfn_opts[scroll_gap]" value="<?php echo esc_attr(Options::getOption('scroll_gap')) ?>" class="regular-text">
+        <input type="number" id="<?php echo esc_attr($args['id']) ?>" name="<?php echo esc_attr($fieldName) ?>" value="<?php echo esc_attr(Options::getOption($args['name'])) ?>" class="regular-text">
         <br>
         <span class="description"><?php esc_html_e('Use this if you have a fixed component on top of the viewport of your site. This can be dynamically set (see documentation).', 'better-footnotes') ?></span>
 
         <?php elseif ('scroll_speed' === $args['name']) : ?>
-        <input type="number" id="<?php echo esc_attr($args['label_for']) ?>" name="bfn_opts[scroll_speed]" value="<?php echo esc_attr(Options::getOption('scroll_speed')) ?>" class="regular-text">
+        <input type="number" id="<?php echo esc_attr($args['id']) ?>" name="<?php echo esc_attr($fieldName) ?>" value="<?php echo esc_attr(Options::getOption($args['name'])) ?>" class="regular-text">
         <br>
         <span class="description"><?php esc_html_e('Adjusts the scroll animation speed when a footnote is clicked. (0 For no animation).', 'better-footnotes') ?></span>
         <?php endif;
