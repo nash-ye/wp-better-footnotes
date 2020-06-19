@@ -71,7 +71,7 @@
             return (betterFootnotes.options.groupFootnotes == 1) ? id + "-" + occurenceCount : id;
         },
         generateFootnoteId: function (postId, footnoteNum) {
-            return "article-footnote-" + postId + "-" + footnoteNum;;
+            return "article-footnote-" + postId + "-" + footnoteNum;
         },
         generateFootnoteRef: function (footnoteHookId, footnoteId, footnoteNum, occurenceCount, type) {
             var $footnoteRef = $("<a></a>");
