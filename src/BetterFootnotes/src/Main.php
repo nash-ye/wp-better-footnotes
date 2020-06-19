@@ -103,8 +103,9 @@ class Main
             'better-footnotes',
             'betterFootnotesOptions',
             [
-                'scrollGap'   => Options::getOption('scroll_gap'),
-                'scrollSpeed' => Options::getOption('scroll_speed'),
+                'scrollGap'       => Options::getOption('scroll_gap'),
+                'scrollSpeed'     => Options::getOption('scroll_speed'),
+                'groupFootnotes'  => (int) Options::getOption('group_footnotes'),
             ]
         );
     }

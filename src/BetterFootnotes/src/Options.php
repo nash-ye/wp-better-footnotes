@@ -28,6 +28,7 @@ class Options
             'auto_append'     => 'n',
             'scroll_gap'      => 0,
             'scroll_speed'    => 350,
+            'group_footnotes' => 0,
         ];
 
         $options = get_option('bfn_opts', $defaults);
