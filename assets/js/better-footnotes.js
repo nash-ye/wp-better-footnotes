@@ -83,6 +83,8 @@
             $footnoteRef.attr("href", "#" + footnoteHookId);
             if('numeric' === type) {
                 $footnoteRef.attr("id", footnoteId);
+            } else {
+                $footnoteRef.addClass("bfn-footnoteRef-child");
             }
             return $footnoteRef;
         },
