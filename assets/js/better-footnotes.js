@@ -42,13 +42,11 @@
                 containerSelector = "#post-" + footnotePostId;
             }
 
-            $('.bfn-footnoteHook', containerSelector).each(function(index) {
-                var $footnoteHook = $(this);
-                var footnoteNum = index + 1;
-                var occurenceCount = 1;
-
-                footnoteNum = betterFootnotes.logOccurence($footnoteHook.data('footnote-content'));
-                occurenceCount = betterFootnotes.occurenceLog[footnoteNum-1].count;
+            $('.bfn-footnoteHook', containerSelector).each(function() {
+                var $footnoteHook  = $(this);
+                var footnoteNum    = betterFootnotes.logOccurence($footnoteHook.data('footnote-content'));
+                var occurenceCount = betterFootnotes.occurenceLog[footnoteNum-1].count;
+ 
                 betterFootnotes.populateFootnoteHook($footnoteHook, footnotePostId, footnoteNum, occurenceCount);
 
             });
@@ -57,7 +55,7 @@
 
         },
         populateFootnoteHook: function($footnoteHook, footnotePostId, footnoteNum, occurenceCount) {
-            var footnoteId = betterFootnotes.generateFootnoteId(footnotePostId, footnoteNum);
+            var footnoteId     = betterFootnotes.generateFootnoteId(footnotePostId, footnoteNum);
             var footnoteHookId = betterFootnotes.generateFootnoteHookId(footnotePostId, footnoteNum, occurenceCount);
             $footnoteHook.attr("id", footnoteHookId);
             $footnoteHook.attr("href", "#" + footnoteId);
@@ -109,10 +107,10 @@
 
             for(var i=0; i< this.occurenceLog.length; i++)
             {
-                var logItem = this.occurenceLog[i];
-                var footnoteNum   = i + 1;
+                var logItem        = this.occurenceLog[i];
+                var footnoteNum    = i + 1;
                 var footnoteHookId = this.generateFootnoteHookId(postId, footnoteNum, 1);
-                var footnoteId = this.generateFootnoteId(postId, footnoteNum);
+                var footnoteId     = this.generateFootnoteId(postId, footnoteNum);
 
                 $footenotesList.append(this.generateFootnoteItem(logItem, postId, footnoteHookId, footnoteId, footnoteNum));
             }
