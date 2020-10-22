@@ -2,7 +2,7 @@
 Contributors: alex-ye
 Tags: footnote, footnotes, bibliography, references, notes
 Requires at least: 4.0
-Tested up to: 5.4.1
+Tested up to: 5.5
 Requires PHP: 7.0
 Stable tag: 1.3
 License: GPLv2 or later
@@ -42,6 +42,8 @@ You can display the footnotes by using the shortcode `footnotes` as the followin
 *Shortcode Parameters*
 - `title` Determines the title for the footnotes list.
 - `title_tag` Title tag name. Default is `h3`.
+
+An active demo is available on [Arageek](https://www.arageek.com/) articles.
 
 = Contributing =
 Developers can contribute to the source code on the [Github Repository](https://github.com/nash-ye/wp-better-footnotes).
