@@ -4,8 +4,10 @@
     var betterFootnotes = {
         options: {
             scrollGap: 0,
-            scrollSpeed: 0
+            scrollSpeed: 0,
+            groupFootnotes: 0
         },
+        occurrenceLog: [],
         init: function () {
             if (typeof betterFootnotesOptions !== 'undefined') {
                 betterFootnotes.options = Object.assign(betterFootnotes.options, betterFootnotesOptions);
@@ -40,59 +42,82 @@
                 containerSelector = "#post-" + footnotePostId;
             }
 
-            var $footenotesList = $(".bfn-footnotesList", $footenotes);
-            $('.bfn-footnoteHook', containerSelector).each(function(index) {
-                var footnoteNum = index + 1;
+            $('.bfn-footnoteHook', containerSelector).each(function() {
+                var $footnoteHook  = $(this);
+                var footnoteNum    = betterFootnotes.logOccurrence($footnoteHook.data('footnote-content'));
+                var occurrenceCount = betterFootnotes.occurrenceLog[footnoteNum-1].count;
+ 
+                betterFootnotes.populateFootnoteHook($footnoteHook, footnotePostId, footnoteNum, occurrenceCount);
 
-                var $footnoteHook = $(this);
-                betterFootnotes.populateFootnoteHook($footnoteHook, footnotePostId, footnoteNum);
-
-                var $footnoteItem = betterFootnotes.generateFootnoteItem($footnoteHook);
-                $footenotesList.append($footnoteItem);
             });
 
-            if (! $footenotesList.is(":empty")) {
-                $footenotes.show();
-            }
-        },
-        populateFootnoteHook: function($footnoteHook, footnotePostId, footnoteNum) {
-            var footnoteId = betterFootnotes.generateFootnoteId(footnotePostId, footnoteNum);
-            var footnoteHookId = betterFootnotes.generateFootnoteHookId(footnotePostId, footnoteNum);
+            this.generateFootnotesList(footnotePostId, $footenotes);
 
+        },
+        populateFootnoteHook: function($footnoteHook, footnotePostId, footnoteNum, occurrenceCount) {
+            var footnoteId     = betterFootnotes.generateFootnoteId(footnotePostId, footnoteNum);
+            var footnoteHookId = betterFootnotes.generateFootnoteHookId(footnotePostId, footnoteNum, occurrenceCount);
             $footnoteHook.attr("id", footnoteHookId);
             $footnoteHook.attr("href", "#" + footnoteId);
             $footnoteHook.attr("data-footnote-id", footnoteId);
-            if ($footnoteHook.attr("data-footnote-type") === "numeric") {
+            if ($footnoteHook.attr("data-footnote-type") === "numeric" || betterFootnotes.options.groupFootnotes == 1) {
                 $footnoteHook.text(footnoteNum);
             }
 
             return $footnoteHook;
         },
-        generateFootnoteHookId: function (postId, footnoteNum) {
-            return "article-footnote-hook-" + postId + "-" + footnoteNum;
+        generateFootnoteHookId: function (postId, footnoteNum, occurrenceCount) {
+            var id =  "article-footnote-hook-" + postId + "-" + footnoteNum;
+            return (betterFootnotes.options.groupFootnotes == 1) ? id + "-" + occurrenceCount : id;
         },
         generateFootnoteId: function (postId, footnoteNum) {
-            return "article-footnote-" + postId + "-" + footnoteNum;;
+            return "article-footnote-" + postId + "-" + footnoteNum;
         },
-        generateFootnoteRef: function ($footnoteHook) {
+        generateFootnoteRef: function (footnoteHookId, footnoteId, footnoteNum, occurrenceCount, type) {
             var $footnoteRef = $("<a></a>");
-
-            $footnoteRef.text($footnoteHook.text());
+            var text = ('numeric' === type) ? footnoteNum : String.fromCharCode(96 + occurrenceCount);
+            $footnoteRef.text(text);
             $footnoteRef.addClass("bfn-footnoteRef");
-            $footnoteRef.attr("href", "#" + $footnoteHook.attr("id"));
-            $footnoteRef.attr("id", $footnoteHook.attr("data-footnote-id"));
-
+            $footnoteRef.attr("href", "#" + footnoteHookId);
+            if('numeric' === type) {
+                $footnoteRef.attr("id", footnoteId);
+            } else {
+                $footnoteRef.addClass("bfn-footnoteRef-child");
+            }
             return $footnoteRef;
         },
-        generateFootnoteItem: function ($footnoteHook) {
+        generateFootnoteItem: function (logItem, postId, footnoteHookId, footnoteId, footnoteNum) {
             var $footnoteItem = $("<li></li>");
             $footnoteItem.addClass("bfn-footnoteItem");
-
-            $footnoteItem.append(betterFootnotes.generateFootnoteRef($footnoteHook));
+            $footnoteItem.append(this.generateFootnoteRef(footnoteHookId, footnoteId, footnoteNum, 1, 'numeric'));
             $footnoteItem.append("&nbsp;");
-            $footnoteItem.append($footnoteHook.attr("data-footnote-content"));
-
+            if(logItem.count > 1 ) {
+                for(var x=1; x <= logItem.count; x++){
+                    footnoteHookId = (x >1) ? this.generateFootnoteHookId(postId, footnoteNum, x) : footnoteHookId;
+                    $footnoteItem.append(this.generateFootnoteRef(footnoteHookId, footnoteId, footnoteNum, x));
+                    $footnoteItem.append("&nbsp;");
+                }
+            }
+            $footnoteItem.append(logItem.contentRaw);
             return $footnoteItem;
+        },
+        generateFootnotesList: function(postId, $footenotes)
+        {
+            var $footenotesList = $(".bfn-footnotesList", $footenotes);
+
+            for(var i=0; i< this.occurrenceLog.length; i++)
+            {
+                var logItem        = this.occurrenceLog[i];
+                var footnoteNum    = i + 1;
+                var footnoteHookId = this.generateFootnoteHookId(postId, footnoteNum, 1);
+                var footnoteId     = this.generateFootnoteId(postId, footnoteNum);
+
+                $footenotesList.append(this.generateFootnoteItem(logItem, postId, footnoteHookId, footnoteId, footnoteNum));
+            }
+
+            if (! $footenotesList.is(":empty")) {
+                $footenotes.show();
+            }        
         },
         scrollTo: function (target, time) {
             if (!betterFootnotes.isDefined(time) || time === false) {
@@ -118,6 +143,28 @@
             } else {
                 return false;
             }
+        },
+        getOccurrenceIndex: function(footnoteContent) {
+            for(var i=0; i< this.occurrenceLog.length; i++) {
+                if(this.occurrenceLog[i].content == footnoteContent) {
+                    return i;
+                }
+            }
+            return -1;
+        },
+        logOccurrence: function(footnoteContent) {
+
+            var footnoteContentNorm = footnoteContent.toLowerCase();
+
+            if(this.options.groupFootnotes == 1 ) {
+                var occurrenceIndex = this.getOccurrenceIndex(footnoteContentNorm);
+                if(occurrenceIndex >= 0) {
+                    this.occurrenceLog[occurrenceIndex].count++;
+                    return occurrenceIndex +1;
+                }
+            }
+
+            return this.occurrenceLog.push({content: footnoteContentNorm, contentRaw: footnoteContent, count: 1});
         }
     };
 

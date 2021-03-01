@@ -107,6 +107,18 @@ class Admin
             ]
         );
 
+        add_settings_field(
+            'group_footnotes',
+            __('Group footnotes', 'better-footnotes'),
+            [$this, 'renderSettingsField'],
+            'better_footnotes',
+            'bfn_general',
+            [
+                'id'   => 'bfn_group_footnotes',
+                'name' => 'group_footnotes',
+            ]
+        );
+
         // Strings
         add_settings_section(
             'bfn_strings',
@@ -197,6 +209,12 @@ class Admin
         <label>
             <input type="checkbox" id="<?php echo esc_attr($args['id']) ?>" name="<?php echo esc_attr($fieldName) ?>" value="y" <?php checked('y', Options::getOption($args['name'])) ?>>
             <?php esc_html_e('Append the footnotes list to post content automatically.', 'better-footnotes') ?>
+        </label>
+
+        <?php elseif ('group_footnotes' === $args['name']) : ?>
+        <label>
+            <input type="checkbox" id="<?php echo esc_attr($args['id']) ?>" name="<?php echo esc_attr($fieldName) ?>" value="1" <?php checked('1', Options::getOption($args['name'])) ?>>
+            <?php esc_html_e('Group repeated footnotes in one list item.', 'better-footnotes') ?>
         </label>
 
         <?php elseif ('scroll_gap' === $args['name']) : ?>
